@@ -9,7 +9,7 @@ This website is designed to showcase her professional profile, academic achievem
 - **Research Portfolio**: Curated list of research grants, journal publications (Q1-Q4), international proceedings, and published books.
 - **Multilingual Support**: Available in both Bahasa Indonesia and English to reach a global audience.
 - **Modern & Responsive Design**: Built with a premium aesthetic using React and Tailwind CSS for a seamless user experience.
-
+   
 ## 🛠️ Technology Stack
 - **Framework**: [React](https://reactjs.org/) with [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)

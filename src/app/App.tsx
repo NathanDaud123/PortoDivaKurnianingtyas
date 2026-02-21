@@ -572,7 +572,7 @@ export default function App() {
               transition={{ duration: 0.8 }}
               className="flex justify-center md:justify-end"
             >
-              <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-full md:max-w-md md:h-auto">
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-full md:max-w-xs md:h-auto">
                 <motion.div
                   animate={{
                     scale: [1, 1.1, 1],
