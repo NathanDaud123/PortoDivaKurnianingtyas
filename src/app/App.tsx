@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Mail, GraduationCap, BookOpen, Award, Users, Globe, Building, Languages, Mic } from 'lucide-react';
+import { Menu, X, Mail, GraduationCap, BookOpen, Award, Users, Globe, Building, Languages, Mic, Trophy, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
@@ -76,9 +76,10 @@ const translations = {
       activity: 'Kegiatan'
     },
     haki: {
-      title: 'Hak Kekayaan Intelektual (HAKI)',
+      title: 'Hak Cipta (HAKI)',
+      id: 'Nomor',
       type: 'Jenis',
-      number: 'Nomor'
+      awardsTitle: 'Penghargaan dan Organisasi Profesi'
     },
     service: {
       title: 'Pengabdian Masyarakat',
@@ -155,9 +156,10 @@ const translations = {
       activity: 'Activity'
     },
     haki: {
-      title: 'Intellectual Property Rights',
+      title: 'Intellectual Property Rights (HAKI)',
+      id: 'Number',
       type: 'Type',
-      number: 'Number'
+      awardsTitle: 'Awards and Professional Organizations'
     },
     service: {
       title: 'Community Service',
@@ -171,37 +173,124 @@ const translations = {
   }
 };
 
-const speakersData = [
-  { year: 2026, title: 'Workshop Peningkatan Kualitas dan Peran AI dalam Penyusunan Kerja UKM', organizer: 'Kemahasiswaan UB' },
-  { year: 2025, title: 'Diskusi Pemenuhan Capaian Bidang Kemahasiswaan: Prestasi, Karya, dan Sertifikasi Kompetensi Internasional', organizer: 'Kemahasiswaan FISIP UB' },
-  { year: 2025, title: 'Bootcamp MIC (Topik AI untuk mendukung Bisnis Berorientasi SDGs)', organizer: 'SMK Telkom Malang' },
-  { year: 2025, title: 'Workshop Peningkatan Kualitas dan Peran AI dalam Penyusunan Kerja UKM', organizer: 'Kemahasiswaan UB' },
-  { year: 2025, title: 'Strategi Sukses menuju PIMNAS', organizer: 'Universitas Machung' },
-  { year: 2025, title: 'Diklat K-RISMA (Dasar Penulisan Karya Ilmiah)', organizer: 'K-RISMA FILKOM UB' },
-  { year: 2025, title: 'Research.id Academy', organizer: 'Research.id Indonesia' },
-  { year: 2025, title: 'Kegiatan Mawapres FILKOM UB (Memahami Landasan Teori dan Strategi Penulisan dalam Pengembangan Karya Tulis Ilmiah)', organizer: 'BEM FILKOM UB' },
-  { year: 2025, title: 'LKMM-TM (Perkembangan Teknologi Informasi dan Komunikasi)', organizer: 'FTP UB' },
-  { year: 2025, title: 'K-RISMA XIII BOOTCAMP (Journal Journey: Membangun Struktur Ilmiah, Mencetak Blueprint Juara)', organizer: 'K-RISMA FILKOM UB' },
-  { year: 2024, title: 'K-RISMA XII BOOTCAMP (Crafting Extended Abstracts for Visionary Sustainable Innovation)', organizer: 'K-RISMA FILKOM UB' },
-  { year: 2024, title: 'LPPM: Menumbuhkan Kolaborasi Riset', organizer: 'Politeknik Perkapalan Negeri Surabaya' },
-  { year: 2024, title: 'Kegiatan Mawapres FILKOM UB (Kiat Menulis Artikel Ilmiah sesuai SDGs)', organizer: 'BEM FILKOM UB' },
-  { year: 2024, title: 'Transformasi Digital Manufaktur', organizer: 'Institut Teknologi Adhi Tama Surabaya' },
-  { year: 2024, title: 'PKKMB & Startup Academy (Mengatasi Tantangan Global Melalui SDGs untuk Menuju Indonesia Emas 2045)', organizer: 'FILKOM UB' },
-  { year: 2024, title: 'AI untuk Journalistik', organizer: 'DISPLAY FILKOM UB' },
-  { year: 2023, title: 'Workshop Penelitian dan Publikasi Ilmiah', organizer: 'FILKOM UB' },
-  { year: 2023, title: 'Seminar Nasional AI dan Machine Learning', organizer: 'Universitas Brawijaya' },
-  { year: 2022, title: 'Pelatihan Pengembangan Sistem Berbasis AI', organizer: 'FILKOM UB' },
-  { year: 2022, title: 'Workshop Optimasi Sistem', organizer: 'Fakultas Teknik UB' },
-  { year: 2022, title: 'Seminar Teknologi Informasi', organizer: 'HMTC FILKOM UB' },
-  { year: 2022, title: 'Workshop Data Science', organizer: 'FILKOM UB' },
-  { year: 2022, title: 'Pelatihan Machine Learning untuk Pemula', organizer: 'K-RISMA FILKOM UB' },
-  { year: 2022, title: 'Webinar Kecerdasan Buatan', organizer: 'BEM FILKOM UB' },
-  { year: 2022, title: 'Workshop Basis Data', organizer: 'FILKOM UB' },
-  { year: 2022, title: 'Seminar Sistem Informasi', organizer: 'HMSI FILKOM UB' },
-  { year: 2021, title: 'Workshop Penelitian untuk Mahasiswa S3', organizer: 'Institut Teknologi Sepuluh Nopember' },
-  { year: 2021, title: 'Seminar Optimasi dan AI', organizer: 'ITS Surabaya' },
-  { year: 2021, title: 'Workshop Metodologi Penelitian', organizer: 'Pascasarjana ITS' }
-];
+const hakiData: Record<string, Array<{ title: string; type: string; id: string }>> = {
+  '2025': [
+    { title: 'Aplikasi Android Penjadwalan Makanan Harian Ibu Hamil', type: 'Program Komputer', id: 'EC002025170587' },
+    { title: 'Alat Deteksi Stunting Bayi dengan AIoT', type: 'Program Komputer', id: 'EC002025167200' },
+    { title: 'Alat Pengukur Panjang dan Berat Badan Bayi dengan IoT', type: 'Program Komputer', id: 'EC002025171886' },
+    { title: 'Video Edukasi Penggunaan AI Pendukung Literasi Digital Pada Remaja Dini', type: 'Karya Rekaman Video', id: '2.01.02.02-.007395/2025' },
+    { title: 'Dunia Digital Anak', type: 'Karya Rekaman Video', id: 'EC002025168825' },
+    { title: 'Orang Tua Sebagai Cahaya Dunia Digital Anak', type: 'Cerita Bergambar', id: 'EC002025168826' },
+    { title: 'Video Edukasi Penggunaan AI Pendukung Literasi Digital Pada Remaja Dini', type: 'Karya Rekaman Video', id: 'EC002025168444' }
+  ],
+  '2023': [
+    { title: 'MITA: Metaverse Advisor Ide Support Mascot', type: 'Desain', id: 'EC002023108418' },
+    { title: 'Video Ideas for Constructive Social Rehabilitation fo Victims of Sexual Abuse with Metaverse-Based Virtual Support Group to Improve Post Traumatic Stress Disorder Recovery', type: 'Video', id: 'EC002023108418' },
+    { title: 'Skin Clinics Ver 2', type: 'Program Komputer', id: 'EC00202391670' },
+    { title: 'Skin Clinics', type: 'Prototype', id: 'EC00202376386' }
+  ],
+  '2022': [
+    { title: 'Chatbot FAQ UB V1.0', type: 'Program Komputer', id: 'EC00202293488' }
+  ]
+};
+
+const serviceData: Record<string, Array<{
+  title: string;
+  titleEn: string;
+  year: number;
+  source: string;
+  sourceEn: string;
+  team?: string;
+  location?: string;
+  locationEn?: string;
+  amount: string;
+  amountEn: string;
+}>> = {
+  '2025': [
+    {
+      title: 'Pembangunan Sistem Informasi Manajemen Administrasi Desa/Kelurahan (SIMDEK)',
+      titleEn: 'Development of Village/Sub-district Administration Management Information System (SIMDEK)',
+      year: 2025,
+      source: 'DRPM: Hibah Pengabdian Kepada Masyarakat Strategis',
+      sourceEn: 'DRPM: Strategic Community Service Grant',
+      team: 'Arief Andy Soebroto, Agi Putra Kharisma, Diva Kurnianingtyas, Nurul Hidayat',
+      amount: '25 jt',
+      amountEn: '25 million'
+    },
+    {
+      title: 'Penguatan Budaya Literasi Digital Pada Remaja Sejak Dini Melalui Kelompok Posyandu Integrasi Layanan Primer',
+      titleEn: 'Strengthening Digital Literacy Culture in Early Adolescents Through Integrated Primary Service Posyandu Groups',
+      year: 2025,
+      source: 'DRPM: Hibah Doktor Mengabdi',
+      sourceEn: 'DRPM: Doctorate Community Service Grant',
+      location: 'Desa Dono, Kecamatan Sendang, Kabupaten Tulungagung',
+      locationEn: 'Dono Village, Sendang District, Tulungagung Regency',
+      amount: '40 jt',
+      amountEn: '40 million'
+    },
+    {
+      title: 'Pemanfaatan Digitalisasi dalam Peningkatan Produktivitas Kader Posyandu melalui Google Workspace',
+      titleEn: 'Utilizing Digitalization to Improve Posyandu Cadre Productivity through Google Workspace',
+      year: 2025,
+      source: 'FILKOM UB: Hibah DIPA Pengabdian',
+      sourceEn: 'FILKOM UB: DIPA Community Service Grant',
+      team: 'Diva Kurnianingtyas, Prima Zulvarina, Wayan Firdaus Mahmudy',
+      amount: '10 jt',
+      amountEn: '10 million'
+    }
+  ],
+  '2024': [
+    {
+      title: 'Diseminasi Riset untuk Peningkatan Kompetensi Manajemen Pesantren Berbasis Artificial Intelligence',
+      titleEn: 'Research Dissemination for Improving Pesantren Management Competence Based on Artificial Intelligence',
+      year: 2024,
+      source: 'FILKOM UB: Hibah DIPA Pengabdian',
+      sourceEn: 'FILKOM UB: DIPA Community Service Grant',
+      team: 'Agus Wahyu Widodo, Diva Kurnianingtyas, Lailil Muflikhah, Novanto Yudistira',
+      amount: '10 jt',
+      amountEn: '10 million'
+    }
+  ]
+};
+
+const speakersData: Record<string, Array<{ year: number; title: string; organizer: string }>> = {
+  '2026': [
+    { year: 2026, title: 'Workshop Peningkatan Kualitas dan Peran AI dalam Penyusunan Kerja UKM', organizer: 'Kemahasiswaan UB' }
+  ],
+  '2025': [
+    { year: 2025, title: 'Diskusi Pemenuhan Capaian Bidang Kemahasiswaan: Prestasi, Karya, dan Sertifikasi Kompetensi Internasional', organizer: 'Kemahasiswaan FISIP UB' },
+    { year: 2025, title: 'Bootcamp MIC (Topik AI untuk mendukung Bisnis Berorientasi SDGs)', organizer: 'SMK Telkom Malang' },
+    { year: 2025, title: 'Workshop Peningkatan Kualitas dan Peran AI dalam Penyusunan Kerja UKM', organizer: 'Kemahasiswaan UB' },
+    { year: 2025, title: 'Strategi Sukses menuju PIMNAS', organizer: 'Universitas Machung' },
+    { year: 2025, title: 'Diklat K-RISMA (Dasar Penulisan Karya Ilmiah)', organizer: 'K-RISMA FILKOM UB' },
+    { year: 2025, title: 'Research.id Academy', organizer: 'Research.id Indonesia' },
+    { year: 2025, title: 'Kegiatan Mawapres FILKOM UB (Memahami Landasan Teori dan Strategi Penulisan dalam Pengembangan Karya Tulis Ilmiah)', organizer: 'BEM FILKOM UB' },
+    { year: 2025, title: 'LKMM-TM (Perkembangan Teknologi Informasi dan Komunikasi)', organizer: 'FTP UB' },
+    { year: 2025, title: 'K-RISMA XIII BOOTCAMP (Journal Journey: Membangun Struktur Ilmiah, Mencetak Blueprint Juara)', organizer: 'K-RISMA FILKOM UB' }
+  ],
+  '2024': [
+    { year: 2024, title: 'K-RISMA XII BOOTCAMP (Crafting Extended Abstracts for Visionary Sustainable Innovation)', organizer: 'K-RISMA FILKOM UB' },
+    { year: 2024, title: 'LPPM: Menumbuhkan Kolaborasi Riset', organizer: 'Politeknik Perkapalan Negeri Surabaya' },
+    { year: 2024, title: 'Kegiatan Mawapres FILKOM UB (Kiat Menulis Artikel Ilmiah sesuai SDGs)', organizer: 'BEM FILKOM UB' },
+    { year: 2024, title: 'Transformasi Digital Manufaktur', organizer: 'Institut Teknologi Adhi Tama Surabaya' },
+    { year: 2024, title: 'PKKMB & Startup Academy (Mengatasi Tantangan Global Melalui SDGs untuk Menuju Indonesia Emas 2045)', organizer: 'FILKOM UB' },
+    { year: 2024, title: 'AI untuk Journalistik', organizer: 'DISPLAY FILKOM UB' }
+  ],
+  '2023': [
+    { year: 2023, title: 'Workshop Penelitian dan Publikasi Ilmiah', organizer: 'FILKOM UB' },
+    { year: 2023, title: 'Seminar Nasional AI dan Machine Learning', organizer: 'Universitas Brawijaya' }
+  ],
+  '2022': [
+    { year: 2022, title: 'Pelatihan Pengembangan Sistem Berbasis AI', organizer: 'FILKOM UB' },
+    { year: 2022, title: 'Workshop Optimasi Sistem', organizer: 'Fakultas Teknik UB' },
+    { year: 2022, title: 'Seminar Teknologi Informasi', organizer: 'HMTC FILKOM UB' },
+    { year: 2022, title: 'Workshop Data Science', organizer: 'FILKOM UB' },
+    { year: 2022, title: 'Pelatihan Machine Learning untuk Pemula', organizer: 'K-RISMA FILKOM UB' },
+    { year: 2022, title: 'Webinar Kecerdasan Buatan', organizer: 'BEM FILKOM UB' },
+    { year: 2022, title: 'Workshop Basis Data', organizer: 'FILKOM UB' },
+    { year: 2022, title: 'Seminar Sistem Informasi', organizer: 'HMSI FILKOM UB' }
+  ]
+};
 
 // Teaching data organized by semester
 const teachingData = {
@@ -263,6 +352,31 @@ const teachingData = {
     { name: 'Pemerolehan Informasi', nameEn: 'Information Retrieval', program: 'S1 Teknik Informatika', programEn: 'Bachelor of Informatics', sks: 3 },
     { name: 'Data Warehouse', nameEn: 'Data Warehouse', program: 'S1 Sistem Informasi', programEn: 'Bachelor of Information Systems', sks: 3 },
   ],
+};
+
+interface SupervisionItem {
+  type: 'advisor1' | 'advisor2';
+  count: number;
+  program: string;
+  programEn: string;
+  topics: string;
+  topicsEn: string;
+  isTotal?: boolean;
+}
+
+const supervisionData: Record<string, SupervisionItem[]> = {
+  '2025': [
+    { type: 'advisor1', count: 13, program: 'S1 Teknik Informatika', programEn: 'Bachelor of Informatics', topics: 'Machine Learning, Optimasi, Sentiment Analysis', topicsEn: 'Machine Learning, Optimization, Sentiment Analysis' },
+    { type: 'advisor1', count: 1, program: 'S1 Sistem Informasi', programEn: 'Bachelor of Information Systems', topics: 'Optimasi', topicsEn: 'Optimization' },
+    { type: 'advisor2', count: 19, program: '5 S1 Teknik Informatika, 1 S1 Teknik Komputer, 1 S1 Teknologi Informasi, 11 S1 Sistem Informasi', programEn: '5 Bachelor of Informatics, 1 Bachelor of Computer Engineering, 1 Bachelor of Information Technology, 11 Bachelor of Information Systems', topics: 'Machine Learning, AI Problem', topicsEn: 'Machine Learning, AI Problem', isTotal: true }
+  ],
+  '2024': [
+    { type: 'advisor1', count: 4, program: 'S1 Teknik Informatika', programEn: 'Bachelor of Informatics', topics: 'Optimasi, Computer Vision', topicsEn: 'Optimization, Computer Vision' },
+    { type: 'advisor2', count: 3, program: '2 S1 Teknik Informatika, 1 S1 Teknologi Informasi', programEn: '2 Bachelor of Informatics, 1 Bachelor of Information Technology', topics: 'Computer Vision, Sentiment Analysis, Factor Analysis', topicsEn: 'Computer Vision, Sentiment Analysis, Factor Analysis' }
+  ],
+  '2023': [
+    { type: 'advisor2', count: 2, program: 'S1 Teknik Informatika', programEn: 'Bachelor of Informatics', topics: 'Gen AI, Sentiment Analysis', topicsEn: 'Gen AI, Sentiment Analysis' }
+  ]
 };
 
 export default function App() {
@@ -819,126 +933,54 @@ export default function App() {
             </TabsContent>
 
             <TabsContent value="supervision" className="space-y-6">
-              <motion.div {...fadeInUp}>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base sm:text-lg">2025 - {t.teaching.graduation}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                          <Badge className="bg-purple-600 text-white text-xs">{t.teaching.advisor1}</Badge>
-                          <Badge variant="outline" className="text-xs">13 {t.teaching.students}</Badge>
-                        </div>
-                        <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'S1 Teknik Informatika' : 'Bachelor of Informatics'}</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? 'Topik: Machine Learning, Optimasi, Sentiment Analysis' : 'Topics: Machine Learning, Optimization, Sentiment Analysis'}</p>
-                      </div>
-                      <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                          <Badge className="bg-pink-600 text-white text-xs">{t.teaching.advisor1}</Badge>
-                          <Badge variant="outline" className="text-xs">1 {t.teaching.students}</Badge>
-                        </div>
-                        <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'S1 Sistem Informasi' : 'Bachelor of Information Systems'}</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? 'Topik: Optimasi' : 'Topic: Optimization'}</p>
-                      </div>
-                      <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                          <Badge className="bg-purple-500 text-white text-xs">{t.teaching.advisor2}</Badge>
-                          <Badge variant="outline" className="text-xs">19 {t.teaching.students} {t.teaching.total}</Badge>
-                        </div>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? '5 S1 Teknik Informatika, 1 S1 Teknik Komputer, 1 S1 Teknologi Informasi, 11 S1 Sistem Informasi' : '5 Bachelor of Informatics, 1 Bachelor of Computer Engineering, 1 Bachelor of Information Technology, 11 Bachelor of Information Systems'}</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? 'Topik: Machine Learning, AI Problem' : 'Topics: Machine Learning, AI Problem'}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <Tabs defaultValue="2025" className="space-y-4">
+                <TabsList className="w-full grid grid-cols-3 gap-2 h-auto bg-transparent">
+                  {Object.keys(supervisionData).map((year) => (
+                    <TabsTrigger
+                      key={year}
+                      value={year}
+                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    >
+                      {year}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
 
-              <motion.div {...fadeInUp}>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base sm:text-lg">2024 - {t.teaching.graduation}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                          <Badge className="bg-purple-600 text-white text-xs">{t.teaching.advisor1}</Badge>
-                          <Badge variant="outline" className="text-xs">4 {t.teaching.students}</Badge>
-                        </div>
-                        <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'S1 Teknik Informatika' : 'Bachelor of Informatics'}</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? 'Topik: Optimasi, Computer Vision' : 'Topics: Optimization, Computer Vision'}</p>
-                      </div>
-                      <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                          <Badge className="bg-pink-500 text-white text-xs">{t.teaching.advisor2}</Badge>
-                          <Badge variant="outline" className="text-xs">3 {t.teaching.students}</Badge>
-                        </div>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? '2 S1 Teknik Informatika, 1 S1 Teknologi Informasi' : '2 Bachelor of Informatics, 1 Bachelor of Information Technology'}</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? 'Topik: Computer Vision, Sentiment Analysis, Factor Analysis' : 'Topics: Computer Vision, Sentiment Analysis, Factor Analysis'}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                {Object.entries(supervisionData).map(([year, items]) => (
+                  <TabsContent key={year} value={year}>
+                    <motion.div {...fadeInUp}>
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base sm:text-lg">{year} - {t.teaching.graduation}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            {items.map((item, idx) => (
+                              <div key={idx} className={`p-4 bg-gradient-to-r ${idx % 2 === 0 ? 'from-purple-50 to-pink-50' : 'from-pink-50 to-purple-50'} rounded-lg`}>
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                                  <Badge className={`${item.type === 'advisor1' ? 'bg-purple-600' : 'bg-purple-500'} text-white text-xs`}>
+                                    {item.type === 'advisor1' ? t.teaching.advisor1 : t.teaching.advisor2}
+                                  </Badge>
+                                  <Badge variant="outline" className="text-xs">
+                                    {item.count} {t.teaching.students} {item.isTotal ? t.teaching.total : ''}
+                                  </Badge>
+                                </div>
+                                <p className="text-sm sm:text-base font-semibold">
+                                  {language === 'id' ? item.program : item.programEn}
+                                </p>
+                                <p className="text-xs sm:text-sm text-gray-600">
+                                  {language === 'id' ? `Topik: ${item.topics}` : `Topics: ${item.topicsEn}`}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </TabsContent>
+                ))}
+              </Tabs>
 
-              <motion.div {...fadeInUp}>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base sm:text-lg">2023 - {t.teaching.graduation}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-                        <Badge className="bg-purple-500 text-white text-xs">{t.teaching.advisor2}</Badge>
-                        <Badge variant="outline" className="text-xs">2 {t.teaching.students}</Badge>
-                      </div>
-                      <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'S1 Teknik Informatika' : 'Bachelor of Informatics'}</p>
-                      <p className="text-xs sm:text-sm text-gray-600">{language === 'id' ? 'Topik: Gen AI, Sentiment Analysis' : 'Topics: Gen AI, Sentiment Analysis'}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div {...fadeInUp}>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-base sm:text-lg">{t.teaching.grants}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="p-3 bg-purple-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                          <div>
-                            <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'Hibah Bantuan Pembelajaran BRONE Kategori VR' : 'BRONE Learning Support Grant VR Category'}</p>
-                            <p className="text-xs sm:text-sm text-gray-600">2025 - {language === 'id' ? 'Universitas Brawijaya' : 'Brawijaya University'}</p>
-                          </div>
-                          <Badge className="bg-purple-600 text-white shrink-0 text-xs">50 {language === 'id' ? 'jt' : 'million'}</Badge>
-                        </div>
-                      </div>
-                      <div className="p-3 bg-pink-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                          <div>
-                            <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'Hibah Program Visiting Professor dan Dosen Praktisi 3in1' : 'Visiting Professor and Practitioner Lecturer 3in1 Program Grant'}</p>
-                            <p className="text-xs sm:text-sm text-gray-600">2025 - {language === 'id' ? 'Universitas Brawijaya' : 'Brawijaya University'}</p>
-                          </div>
-                          <Badge className="bg-pink-600 text-white shrink-0 text-xs">40 {language === 'id' ? 'jt' : 'million'}</Badge>
-                        </div>
-                      </div>
-                      <div className="p-3 bg-purple-50 rounded-lg">
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                          <div>
-                            <p className="text-sm sm:text-base font-semibold">{language === 'id' ? 'Hibah Program Visiting Professor dan Dosen Praktisi 3in1' : 'Visiting Professor and Practitioner Lecturer 3in1 Program Grant'}</p>
-                            <p className="text-xs sm:text-sm text-gray-600">2024 - {language === 'id' ? 'Universitas Brawijaya' : 'Brawijaya University'}</p>
-                          </div>
-                          <Badge className="bg-purple-600 text-white shrink-0 text-xs">40 {language === 'id' ? 'jt' : 'million'}</Badge>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
             </TabsContent>
           </Tabs>
         </div>
@@ -1100,57 +1142,106 @@ export default function App() {
             >
               {t.international.mobility}
             </motion.h3>
+
+            {/* Stats summary */}
+            <motion.div {...fadeInUp} className="grid grid-cols-3 gap-4 mb-8">
+              {[
+                { value: '15', label: t.international.totalStudents, color: 'text-purple-600', bg: 'bg-purple-50' },
+                { value: '4', label: t.international.partnerUniversities, color: 'text-pink-600', bg: 'bg-pink-50' },
+                { value: '1', label: t.international.countries, color: 'text-purple-600', bg: 'bg-purple-50' }
+              ].map((stat, i) => (
+                <motion.div key={i} whileHover={{ scale: 1.05 }} className={`text-center p-4 ${stat.bg} rounded-xl`}>
+                  <p className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>{stat.value}</p>
+                  <p className="text-xs sm:text-sm text-gray-600 mt-1">{stat.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+
             <motion.div {...fadeInUp}>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base sm:text-lg">UB Stars Program - Student Exchange</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xl sm:text-2xl">🇲🇾</span>
-                        <p className="text-sm sm:text-base font-semibold">Universiti Teknikal Malaysia Melaka (UTeM)</p>
-                      </div>
-                      <p className="text-xs sm:text-sm text-gray-600">3 {t.international.totalStudents} - 2025</p>
-                      <p className="text-xs sm:text-sm text-gray-500">Beby Ayu Wulandari, Abiyyu Kumara Nayottama, Ghatfan Emery Razan</p>
-                    </div>
+              <Tabs defaultValue="2025" className="space-y-6">
+                <TabsList className="w-full grid grid-cols-2 gap-2 h-auto bg-transparent">
+                  {['2025', '2024'].map((year) => (
+                    <TabsTrigger
+                      key={year}
+                      value={year}
+                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    >
+                      {year}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
 
-                    <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xl sm:text-2xl">🇲🇾</span>
-                        <p className="text-sm sm:text-base font-semibold">Universiti Malaya, Malaysia</p>
-                      </div>
-                      <p className="text-xs sm:text-sm text-gray-600">7 {t.international.totalStudents} - 2025</p>
-                      <p className="text-xs sm:text-sm text-gray-500">{language === 'id' ? 'Berbagai program termasuk mahasiswa S1 dan pascasarjana' : 'Multiple programs including undergraduate and graduate students'}</p>
-                    </div>
-
-                    <div className="grid sm:grid-cols-3 gap-4 mt-4">
+                <TabsContent value="2025">
+                  <div className="space-y-3">
+                    {[
+                      { no: 1, program: 'UB Stars Batch 4', student: 'Beby Ayu Wulandari', degree: 'S1 Sistem Informasi', institution: 'Universiti Teknikal Malaysia Melaka (UTeM)', advisor: 'Assoc. Prof. Sharifah Sakinah Syed Ahmad', flag: '🇲🇾' },
+                      { no: 2, program: 'UB Stars Batch 4', student: 'Abiyyu Kumara Nayottama', degree: 'S1 Teknik Informatika', institution: 'Universiti Teknikal Malaysia Melaka (UTeM)', advisor: 'Assoc. Prof. Sharifah Sakinah Syed Ahmad', flag: '🇲🇾' },
+                      { no: 3, program: 'UB Stars Batch 3', student: 'Ghatfan Emery Razan', degree: 'S1 Teknologi Informasi', institution: 'Universiti Teknikal Malaysia Melaka (UTeM)', advisor: 'Assoc. Prof. Sharifah Sakinah Syed Ahmad', flag: '🇲🇾' },
+                      { no: 4, program: 'UB Stars Batch 3', student: 'Noval Raihan Ramadhan', degree: 'S1 Sistem Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Maizatul Akmar Ismail', flag: '🇲🇾' },
+                      { no: 5, program: 'UB Stars Batch 3', student: 'Steven Hansel Abilo', degree: 'S1 Sistem Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Maizatul Akmar Ismail', flag: '🇲🇾' },
+                      { no: 6, program: 'UB Stars Batch 3', student: 'Aditya Rizki Pratama', degree: 'S1 Sistem Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Maizatul Akmar Ismail', flag: '🇲🇾' },
+                      { no: 7, program: 'UB Stars Batch 3', student: 'Daniel Geoffrey Manurung', degree: 'S1 Sistem Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Maizatul Akmar Ismail', flag: '🇲🇾' },
+                      { no: 8, program: 'UB Stars Batch 3', student: 'Daniel Gifted Karsanto', degree: 'S1 Sistem Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Maizatul Akmar Ismail', flag: '🇲🇾' },
+                      { no: 9, program: 'UB Stars Batch 3', student: 'Mohammad Haikal Ramadhan', degree: 'S1 Sistem Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Maizatul Akmar Ismail', flag: '🇲🇾' },
+                      { no: 10, program: 'UB Stars Batch 2', student: 'Muhammad Irtada Al Fawwaz', degree: 'S1 Teknologi Informasi', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Norjihan', flag: '🇲🇾' },
+                      { no: 11, program: 'UB Stars Batch 1', student: "Fath' Hani Sarli Bajsair", degree: 'S1 Teknik Informatika', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Suraya Hamid', flag: '🇲🇾' },
+                      { no: 12, program: 'UB Stars Batch 1', student: 'Lintang Cahyaning Sukma', degree: 'S1 Teknik Informatika', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Suraya Hamid', flag: '🇲🇾' },
+                    ].map((item) => (
                       <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="text-center p-4 bg-purple-50 rounded-lg"
+                        key={item.no}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: item.no * 0.05 }}
+                        className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-purple-50/60 to-pink-50/60 hover:from-purple-50 hover:to-pink-50 transition-colors border border-purple-100/50"
                       >
-                        <p className="text-2xl sm:text-3xl font-bold text-purple-600">15+</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{t.international.totalStudents}</p>
+                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center text-xs font-bold text-purple-600 shadow-sm border border-purple-100">
+                          {item.no}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap gap-2 mb-1">
+                            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs">{item.program}</Badge>
+                          </div>
+                          <p className="text-sm font-semibold text-gray-900">{item.student}</p>
+                          <p className="text-xs text-gray-500 italic mb-1">{item.degree}</p>
+                          <p className="text-xs text-gray-600">{item.flag} {item.institution}</p>
+                          <p className="text-xs text-gray-500">Supervisor: {item.advisor}</p>
+                        </div>
                       </motion.div>
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="text-center p-4 bg-pink-50 rounded-lg"
-                      >
-                        <p className="text-2xl sm:text-3xl font-bold text-pink-600">5</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{t.international.partnerUniversities}</p>
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="text-center p-4 bg-purple-50 rounded-lg"
-                      >
-                        <p className="text-2xl sm:text-3xl font-bold text-purple-600">4</p>
-                        <p className="text-xs sm:text-sm text-gray-600">{t.international.countries}</p>
-                      </motion.div>
-                    </div>
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
+                </TabsContent>
+
+                <TabsContent value="2024">
+                  <div className="space-y-3">
+                    {[
+                      { no: 1, program: 'UB Stars Regular', student: 'Putri Shanty Yanunta Yulista', degree: 'S1 Teknik Komputer', institution: 'Universiti Teknologi MARA (UiTM), Malaysia', advisor: 'Prof. Jasni Mohamad Zain', flag: '🇲🇾' },
+                      { no: 2, program: 'UB Stars Pilot', student: 'Nathan Daud', degree: 'S1 Teknik Informatika', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Tutut Herawan', flag: '🇲🇾' },
+                      { no: 3, program: 'UB Stars Pilot', student: 'Haidar Hanif', degree: 'S1 Teknik Informatika', institution: 'Universiti Malaya, Malaysia', advisor: 'Assoc. Prof. Tutut Herawan', flag: '🇲🇾' },
+                    ].map((item) => (
+                      <motion.div
+                        key={item.no}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: item.no * 0.1 }}
+                        className="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-purple-50/60 to-pink-50/60 hover:from-purple-50 hover:to-pink-50 transition-colors border border-purple-100/50"
+                      >
+                        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center text-xs font-bold text-purple-600 shadow-sm border border-purple-100">
+                          {item.no}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap gap-2 mb-1">
+                            <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs">{item.program}</Badge>
+                          </div>
+                          <p className="text-sm font-semibold text-gray-900">{item.student}</p>
+                          <p className="text-xs text-gray-500 italic mb-1">{item.degree}</p>
+                          <p className="text-xs text-gray-600">{item.flag} {item.institution}</p>
+                          <p className="text-xs text-gray-500">Supervisor: {item.advisor}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </TabsContent>
+              </Tabs>
             </motion.div>
           </div>
         </div>
@@ -1169,29 +1260,115 @@ export default function App() {
             </h2>
           </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="grid sm:grid-cols-2 gap-4 sm:gap-6"
-          >
-            {speakersData.map((speaker, idx) => (
-              <motion.div key={idx} variants={fadeInUp}>
-                <Card className="hover:shadow-lg transition-shadow h-full">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                      <CardTitle className="text-sm sm:text-base line-clamp-2">{speaker.title}</CardTitle>
-                      <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white shrink-0 text-xs">{speaker.year}</Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-xs sm:text-sm text-gray-600">{t.speakers.organizer}: {speaker.organizer}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          <Tabs defaultValue="2026" className="space-y-6">
+            <TabsList className="w-full grid grid-cols-2 sm:grid-cols-5 gap-2 h-auto bg-transparent">
+              {Object.keys(speakersData).sort((a, b) => b.localeCompare(a)).map((year) => (
+                <TabsTrigger
+                  key={year}
+                  value={year}
+                  className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                >
+                  {year}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {Object.entries(speakersData).map(([year, speakers]) => (
+              <TabsContent key={year} value={year}>
+                <motion.div
+                  variants={staggerContainer}
+                  initial="initial"
+                  whileInView="whileInView"
+                  viewport={{ once: true }}
+                  className="grid sm:grid-cols-2 gap-4 sm:gap-6"
+                >
+                  {speakers.map((speaker, idx) => (
+                    <motion.div key={idx} variants={fadeInUp}>
+                      <Card className="hover:shadow-lg transition-shadow h-full border-l-4 border-l-purple-500">
+                        <CardHeader>
+                          <CardTitle className="text-sm sm:text-base line-clamp-2">{speaker.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-xs sm:text-sm text-gray-600">{t.speakers.organizer}: {speaker.organizer}</p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </TabsContent>
             ))}
+          </Tabs>
+        </div>
+      </section>
+
+      {/* Awards & Professional Organization Section */}
+      <section id="awards" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12 bg-gray-50/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            {...fadeInUp}
+            className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
+          >
+            <Trophy className="text-purple-600" size={32} />
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              {t.haki.awardsTitle}
+            </h2>
           </motion.div>
+
+          <div className="space-y-8">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-purple-100">
+              <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <ShieldCheck className="text-pink-500" size={24} />
+                {t.haki.title}
+              </h3>
+
+              <Tabs defaultValue="2025" className="space-y-6">
+                <TabsList className="w-full grid grid-cols-3 gap-2 h-auto bg-transparent mb-8">
+                  {Object.keys(hakiData).sort((a, b) => b.localeCompare(a)).map((year) => (
+                    <TabsTrigger
+                      key={year}
+                      value={year}
+                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    >
+                      {year}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+
+                {Object.entries(hakiData).map(([year, items]) => (
+                  <TabsContent key={year} value={year}>
+                    <div className="grid gap-4">
+                      {items.map((item, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-purple-50/50 to-pink-50/50 hover:from-purple-50 hover:to-pink-50 transition-colors border border-purple-100/50"
+                        >
+                          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center text-xs font-bold text-purple-600 shadow-sm border border-purple-100">
+                            {idx + 1}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">
+                              {item.title}
+                            </h4>
+                            <div className="flex flex-wrap gap-3">
+                              <span className="text-xs text-gray-500 flex items-center gap-1">
+                                <span className="font-medium text-pink-600">{t.haki.type}:</span> {item.type}
+                              </span>
+                              <span className="text-xs text-gray-500 flex items-center gap-1">
+                                <span className="font-medium text-purple-600">ID:</span> {item.id}
+                              </span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1208,77 +1385,57 @@ export default function App() {
             </h2>
           </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="space-y-4 sm:space-y-6"
-          >
-            <motion.div variants={fadeInUp}>
-              <Card className="border-l-4 border-l-purple-500">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                    <CardTitle className="text-sm sm:text-base">{language === 'id' ? 'Pembangunan Sistem Informasi Manajemen Administrasi Desa/Kelurahan (SIMDEK)' : 'Development of Village/Sub-district Administration Management Information System (SIMDEK)'}</CardTitle>
-                    <Badge className="bg-purple-600 text-white shrink-0 text-xs">2025</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-2">{language === 'id' ? 'DRPM: Hibah Pengabdian Kepada Masyarakat Strategis' : 'DRPM: Strategic Community Service Grant'}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 mb-3">Arief Andy Soebroto, Agi Putra Kharisma, Diva Kurnianingtyas, Nurul Hidayat</p>
-                  <Badge variant="outline" className="text-xs">25 {language === 'id' ? 'juta' : 'million'}</Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
+          <Tabs defaultValue="2025" className="space-y-6">
+            <TabsList className="w-full grid grid-cols-2 sm:grid-cols-4 gap-2 h-auto bg-transparent">
+              {Object.keys(serviceData).sort((a, b) => b.localeCompare(a)).map((year) => (
+                <TabsTrigger
+                  key={year}
+                  value={year}
+                  className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                >
+                  {year}
+                </TabsTrigger>
+              ))}
+            </TabsList>
 
-            <motion.div variants={fadeInUp}>
-              <Card className="border-l-4 border-l-pink-500">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                    <CardTitle className="text-sm sm:text-base">{language === 'id' ? 'Penguatan Budaya Literasi Digital Pada Remaja Sejak Dini Melalui Kelompok Posyandu Integrasi Layanan Primer' : 'Strengthening Digital Literacy Culture in Early Adolescents Through Integrated Primary Service Posyandu Groups'}</CardTitle>
-                    <Badge className="bg-pink-600 text-white shrink-0 text-xs">2025</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-2">{language === 'id' ? 'DRPM: Hibah Doktor Mengabdi' : 'DRPM: Doctorate Community Service Grant'}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 mb-3">{language === 'id' ? 'Desa Dono, Kecamatan Sendang, Kabupaten Tulungagung' : 'Dono Village, Sendang District, Tulungagung Regency'}</p>
-                  <Badge variant="outline" className="text-xs">40 {language === 'id' ? 'juta' : 'million'}</Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={fadeInUp}>
-              <Card className="border-l-4 border-l-purple-500">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                    <CardTitle className="text-sm sm:text-base">{language === 'id' ? 'Pemanfaatan Digitalisasi dalam Peningkatan Produktivitas Kader Posyandu melalui Google Workspace' : 'Utilizing Digitalization to Improve Posyandu Cadre Productivity through Google Workspace'}</CardTitle>
-                    <Badge className="bg-purple-600 text-white shrink-0 text-xs">2025</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-2">{language === 'id' ? 'FILKOM UB: Hibah DIPA Pengabdian' : 'FILKOM UB: DIPA Community Service Grant'}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 mb-3">Diva Kurnianingtyas, Prima Zulvarina, Wayan Firdaus Mahmudy</p>
-                  <Badge variant="outline" className="text-xs">10 {language === 'id' ? 'juta' : 'million'}</Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={fadeInUp}>
-              <Card className="border-l-4 border-l-pink-500">
-                <CardHeader>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                    <CardTitle className="text-sm sm:text-base">{language === 'id' ? 'Diseminasi Riset untuk Peningkatan Kompetensi Manajemen Pesantren Berbasis Artificial Intelligence' : 'Research Dissemination for Improving Pesantren Management Competence Based on Artificial Intelligence'}</CardTitle>
-                    <Badge className="bg-pink-600 text-white shrink-0 text-xs">2024</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-2">{language === 'id' ? 'FILKOM UB: Hibah DIPA Pengabdian' : 'FILKOM UB: DIPA Community Service Grant'}</p>
-                  <p className="text-xs sm:text-sm text-gray-500 mb-3">Agus Wahyu Widodo, Diva Kurnianingtyas, Lailil Muflikhah, Novanto Yudistira</p>
-                  <Badge variant="outline" className="text-xs">10 {language === 'id' ? 'juta' : 'million'}</Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
+            {Object.entries(serviceData).map(([year, services]) => (
+              <TabsContent key={year} value={year}>
+                <motion.div
+                  variants={staggerContainer}
+                  initial="initial"
+                  whileInView="whileInView"
+                  viewport={{ once: true }}
+                  className="space-y-4 sm:space-y-6"
+                >
+                  {services.map((service, idx) => (
+                    <motion.div key={idx} variants={fadeInUp}>
+                      <Card className={`border-l-4 ${idx % 2 === 0 ? 'border-l-purple-500' : 'border-l-pink-500'}`}>
+                        <CardHeader>
+                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                            <CardTitle className="text-sm sm:text-base">{language === 'id' ? service.title : service.titleEn}</CardTitle>
+                            <Badge variant="outline" className="shrink-0 text-xs">
+                              {language === 'id' ? service.amount : service.amountEn}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-xs sm:text-sm text-gray-600 mb-2">{language === 'id' ? service.source : service.sourceEn}</p>
+                          {service.location && (
+                            <p className="text-xs sm:text-sm text-gray-500 mb-2 italic">
+                              {language === 'id' ? service.location : service.locationEn}
+                            </p>
+                          )}
+                          {service.team && (
+                            <p className="text-xs sm:text-sm text-gray-500 mb-3">{service.team}</p>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </TabsContent>
+            ))}
+          </Tabs>
         </div>
       </section>
 
