@@ -570,9 +570,9 @@ export default function App() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex justify-center"
+              className="flex justify-center md:justify-end"
             >
-              <div className="relative w-full max-w-sm sm:max-w-md">
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-full md:max-w-md md:h-auto">
                 <motion.div
                   animate={{
                     scale: [1, 1.1, 1],
@@ -587,7 +587,7 @@ export default function App() {
                 <img
                   src={profileImage}
                   alt="Dr. Diva Kurnianingtyas"
-                  className="relative rounded-3xl shadow-2xl w-full object-cover"
+                  className="relative rounded-3xl shadow-2xl w-full h-full object-cover"
                 />
               </div>
             </motion.div>
@@ -891,12 +891,12 @@ export default function App() {
 
             <TabsContent value="teaching" className="space-y-6">
               <Tabs defaultValue="2025/2026 Genap" className="space-y-4">
-                <TabsList className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 h-auto bg-transparent">
+                <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                   {Object.keys(teachingData).map((semester) => (
                     <TabsTrigger
                       key={semester}
                       value={semester}
-                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                      className="whitespace-nowrap min-w-[120px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                     >
                       {semester}
                     </TabsTrigger>
@@ -934,12 +934,12 @@ export default function App() {
 
             <TabsContent value="supervision" className="space-y-6">
               <Tabs defaultValue="2025" className="space-y-4">
-                <TabsList className="w-full grid grid-cols-3 gap-2 h-auto bg-transparent">
+                <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                   {Object.keys(supervisionData).map((year) => (
                     <TabsTrigger
                       key={year}
                       value={year}
-                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                      className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                     >
                       {year}
                     </TabsTrigger>
@@ -1159,12 +1159,12 @@ export default function App() {
 
             <motion.div {...fadeInUp}>
               <Tabs defaultValue="2025" className="space-y-6">
-                <TabsList className="w-full grid grid-cols-2 gap-2 h-auto bg-transparent">
+                <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                   {['2025', '2024'].map((year) => (
                     <TabsTrigger
                       key={year}
                       value={year}
-                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                      className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                     >
                       {year}
                     </TabsTrigger>
@@ -1261,12 +1261,12 @@ export default function App() {
           </motion.div>
 
           <Tabs defaultValue="2026" className="space-y-6">
-            <TabsList className="w-full grid grid-cols-2 sm:grid-cols-5 gap-2 h-auto bg-transparent">
+            <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
               {Object.keys(speakersData).sort((a, b) => b.localeCompare(a)).map((year) => (
                 <TabsTrigger
                   key={year}
                   value={year}
-                  className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                  className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                 >
                   {year}
                 </TabsTrigger>
@@ -1322,12 +1322,12 @@ export default function App() {
               </h3>
 
               <Tabs defaultValue="2025" className="space-y-6">
-                <TabsList className="w-full grid grid-cols-3 gap-2 h-auto bg-transparent mb-8">
+                <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent mb-8">
                   {Object.keys(hakiData).sort((a, b) => b.localeCompare(a)).map((year) => (
                     <TabsTrigger
                       key={year}
                       value={year}
-                      className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                      className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                     >
                       {year}
                     </TabsTrigger>
@@ -1386,12 +1386,12 @@ export default function App() {
           </motion.div>
 
           <Tabs defaultValue="2025" className="space-y-6">
-            <TabsList className="w-full grid grid-cols-2 sm:grid-cols-4 gap-2 h-auto bg-transparent">
+            <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
               {Object.keys(serviceData).sort((a, b) => b.localeCompare(a)).map((year) => (
                 <TabsTrigger
                   key={year}
                   value={year}
-                  className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                  className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                 >
                   {year}
                 </TabsTrigger>

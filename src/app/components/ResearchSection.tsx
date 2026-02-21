@@ -584,23 +584,23 @@ export function ResearchSection({ language }: ResearchSectionProps) {
         </motion.div>
 
         <Tabs defaultValue="grants" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 max-w-5xl mx-auto">
-            <TabsTrigger value="grants">{t.grants}</TabsTrigger>
-            <TabsTrigger value="teachingGrants">{t.teachingGrants}</TabsTrigger>
-            <TabsTrigger value="publications">{t.publications}</TabsTrigger>
-            <TabsTrigger value="proceedings">{t.proceedings}</TabsTrigger>
-            <TabsTrigger value="books">{t.books}</TabsTrigger>
+          <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start sm:justify-center p-1 bg-muted/50 rounded-xl">
+            <TabsTrigger value="grants" className="whitespace-nowrap px-4">{t.grants}</TabsTrigger>
+            <TabsTrigger value="teachingGrants" className="whitespace-nowrap px-4">{t.teachingGrants}</TabsTrigger>
+            <TabsTrigger value="publications" className="whitespace-nowrap px-4">{t.publications}</TabsTrigger>
+            <TabsTrigger value="proceedings" className="whitespace-nowrap px-4">{t.proceedings}</TabsTrigger>
+            <TabsTrigger value="books" className="whitespace-nowrap px-4">{t.books}</TabsTrigger>
           </TabsList>
 
           {/* Research Grants Tab */}
           <TabsContent value="grants" className="space-y-6">
             <Tabs defaultValue="2025" className="space-y-4">
-              <TabsList className="w-full grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2 h-auto bg-transparent">
+              <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                 {Object.keys(researchGrantsData).map((year) => (
                   <TabsTrigger
                     key={year}
                     value={year}
-                    className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                   >
                     {year}
                   </TabsTrigger>
@@ -651,12 +651,12 @@ export function ResearchSection({ language }: ResearchSectionProps) {
           {/* Teaching Grants Tab */}
           <TabsContent value="teachingGrants">
             <Tabs defaultValue="2025" className="space-y-4">
-              <TabsList className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 h-auto bg-transparent">
+              <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                 {Object.keys(teachingGrantsData).sort((a, b) => b.localeCompare(a)).map((year) => (
                   <TabsTrigger
                     key={year}
                     value={year}
-                    className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                   >
                     {year}
                   </TabsTrigger>
@@ -701,12 +701,12 @@ export function ResearchSection({ language }: ResearchSectionProps) {
           {/* Publications Tab */}
           <TabsContent value="publications">
             <Tabs defaultValue="2025" className="space-y-4">
-              <TabsList className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 h-auto bg-transparent">
+              <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                 {Object.keys(publicationsData).sort((a, b) => b.localeCompare(a)).map((year) => (
                   <TabsTrigger
                     key={year}
                     value={year}
-                    className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                   >
                     {year}
                   </TabsTrigger>
@@ -750,12 +750,12 @@ export function ResearchSection({ language }: ResearchSectionProps) {
           {/* Proceedings Tab */}
           <TabsContent value="proceedings">
             <Tabs defaultValue="2025" className="space-y-4">
-              <TabsList className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 h-auto bg-transparent">
+              <TabsList className="flex w-full overflow-x-auto no-scrollbar justify-start gap-2 p-1 bg-transparent">
                 {Object.keys(proceedingsData).sort((a, b) => b.localeCompare(a)).map((year) => (
                   <TabsTrigger
                     key={year}
                     value={year}
-                    className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
+                    className="whitespace-nowrap min-w-[60px] text-xs sm:text-sm px-4 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white rounded-lg transition-all"
                   >
                     {year}
                   </TabsTrigger>
