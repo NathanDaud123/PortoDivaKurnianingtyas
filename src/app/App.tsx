@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Badge } from './components/ui/badge';
 import { Separator } from './components/ui/separator';
 import { ResearchSection } from './components/ResearchSection';
-import profileImage from "figma:asset/5ac623c700bffa99dd4fd83df32f637fe8e60b72.png";
+import profileImage from "@/assets/profile.jpg";
 
 // Translation object
 const translations = {
@@ -306,7 +306,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50">
       {/* Navigation */}
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -317,7 +317,7 @@ export default function App() {
             <div className="font-bold text-xl bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
               Dr. Diva Kurnianingtyas
             </div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden lg:flex space-x-6 items-center text-sm">
               <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-purple-600 transition-colors">{t.nav.home}</button>
@@ -327,7 +327,7 @@ export default function App() {
               <button onClick={() => scrollToSection('teaching')} className="text-gray-700 hover:text-purple-600 transition-colors">{t.nav.teaching}</button>
               <button onClick={() => scrollToSection('research')} className="text-gray-700 hover:text-purple-600 transition-colors">{t.nav.research}</button>
               <button onClick={() => scrollToSection('international')} className="text-gray-700 hover:text-purple-600 transition-colors">{t.nav.international}</button>
-              
+
               {/* Language Toggle */}
               <button
                 onClick={toggleLanguage}
@@ -358,7 +358,7 @@ export default function App() {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -381,13 +381,13 @@ export default function App() {
       <section id="home" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="space-y-4 sm:space-y-6"
             >
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
@@ -397,7 +397,7 @@ export default function App() {
                   {t.hero.position}
                 </span>
               </motion.div>
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -405,7 +405,7 @@ export default function App() {
               >
                 Dr. Ir. Diva Kurnianingtyas, S.Kom.
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
@@ -413,7 +413,7 @@ export default function App() {
               >
                 {t.hero.faculty}
               </motion.p>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
@@ -422,7 +422,7 @@ export default function App() {
                 <Badge className="bg-gradient-to-r from-pink-500 to-purple-500 text-white">Lektor</Badge>
                 <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">Penata III/c</Badge>
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
@@ -431,48 +431,48 @@ export default function App() {
                 <Mail size={20} className="text-purple-600" />
                 <a href="mailto:divaku@ub.ac.id" className="hover:text-purple-600 transition-colors text-sm sm:text-base">divaku@ub.ac.id</a>
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
                 className="flex flex-wrap gap-3 pt-4"
               >
-                <Button 
+                <Button
                   onClick={() => window.location.href = 'mailto:divaku@ub.ac.id'}
                   className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
                 >
                   {t.hero.contact}
                 </Button>
-                <Button 
+                <Button
                   onClick={handleDownloadCV}
-                  variant="outline" 
+                  variant="outline"
                   className="border-purple-300 text-purple-600 hover:bg-purple-50"
                 >
                   {t.hero.downloadCV}
                 </Button>
               </motion.div>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="flex justify-center"
             >
               <div className="relative w-full max-w-sm sm:max-w-md">
-                <motion.div 
-                  animate={{ 
+                <motion.div
+                  animate={{
                     scale: [1, 1.1, 1],
                   }}
-                  transition={{ 
+                  transition={{
                     duration: 3,
                     repeat: Infinity,
                     repeatType: "reverse"
                   }}
                   className="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-400 rounded-3xl blur-2xl opacity-30"
                 ></motion.div>
-                <img 
-                  src={profileImage} 
-                  alt="Dr. Diva Kurnianingtyas" 
+                <img
+                  src={profileImage}
+                  alt="Dr. Diva Kurnianingtyas"
                   className="relative rounded-3xl shadow-2xl w-full object-cover"
                 />
               </div>
@@ -484,13 +484,13 @@ export default function App() {
       {/* Profile Details Section */}
       <section id="about" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12 bg-white/50">
         <div className="max-w-6xl mx-auto">
-          <motion.h2 
+          <motion.h2
             {...fadeInUp}
             className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent"
           >
             {t.profileDetail.title}
           </motion.h2>
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="whileInView"
@@ -557,7 +557,7 @@ export default function App() {
       {/* Education Section */}
       <section id="education" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             {...fadeInUp}
             className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
           >
@@ -566,8 +566,8 @@ export default function App() {
               {t.education.title}
             </h2>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="whileInView"
@@ -626,7 +626,7 @@ export default function App() {
       {/* Positions Section */}
       <section id="positions" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12 bg-white/50">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             {...fadeInUp}
             className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
           >
@@ -636,7 +636,7 @@ export default function App() {
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="whileInView"
@@ -759,7 +759,7 @@ export default function App() {
       {/* Teaching Section with Multiple Semester Tabs */}
       <section id="teaching" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             {...fadeInUp}
             className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
           >
@@ -779,8 +779,8 @@ export default function App() {
               <Tabs defaultValue="2025/2026 Genap" className="space-y-4">
                 <TabsList className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 h-auto bg-transparent">
                   {Object.keys(teachingData).map((semester) => (
-                    <TabsTrigger 
-                      key={semester} 
+                    <TabsTrigger
+                      key={semester}
                       value={semester}
                       className="text-xs sm:text-sm px-2 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
                     >
@@ -950,7 +950,7 @@ export default function App() {
       {/* International Collaboration Section */}
       <section id="international" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12 bg-white/50">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             {...fadeInUp}
             className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
           >
@@ -961,7 +961,7 @@ export default function App() {
           </motion.div>
 
           {/* Countries Grid */}
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="whileInView"
@@ -978,7 +978,7 @@ export default function App() {
               <motion.div key={idx} variants={fadeInUp}>
                 <Card className="text-center hover:shadow-lg transition-shadow">
                   <CardContent className="pt-6 pb-6">
-                    <motion.div 
+                    <motion.div
                       whileHover={{ scale: 1.2, rotate: 10 }}
                       transition={{ type: "spring", stiffness: 300 }}
                       className="text-4xl sm:text-6xl mb-3"
@@ -994,13 +994,13 @@ export default function App() {
 
           {/* Academic Cooperation */}
           <div className="space-y-4 sm:space-y-6">
-            <motion.h3 
+            <motion.h3
               {...fadeInUp}
               className="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8"
             >
               {t.international.cooperation}
             </motion.h3>
-            
+
             <motion.div {...fadeInUp}>
               <Card className="border-l-4 border-l-purple-500">
                 <CardHeader>
@@ -1094,7 +1094,7 @@ export default function App() {
 
           {/* Student Mobility */}
           <div className="mt-8 sm:mt-12">
-            <motion.h3 
+            <motion.h3
               {...fadeInUp}
               className="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8"
             >
@@ -1126,21 +1126,21 @@ export default function App() {
                     </div>
 
                     <div className="grid sm:grid-cols-3 gap-4 mt-4">
-                      <motion.div 
+                      <motion.div
                         whileHover={{ scale: 1.05 }}
                         className="text-center p-4 bg-purple-50 rounded-lg"
                       >
                         <p className="text-2xl sm:text-3xl font-bold text-purple-600">15+</p>
                         <p className="text-xs sm:text-sm text-gray-600">{t.international.totalStudents}</p>
                       </motion.div>
-                      <motion.div 
+                      <motion.div
                         whileHover={{ scale: 1.05 }}
                         className="text-center p-4 bg-pink-50 rounded-lg"
                       >
                         <p className="text-2xl sm:text-3xl font-bold text-pink-600">5</p>
                         <p className="text-xs sm:text-sm text-gray-600">{t.international.partnerUniversities}</p>
                       </motion.div>
-                      <motion.div 
+                      <motion.div
                         whileHover={{ scale: 1.05 }}
                         className="text-center p-4 bg-purple-50 rounded-lg"
                       >
@@ -1159,7 +1159,7 @@ export default function App() {
       {/* Speakers Experience Section */}
       <section id="speakers" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             {...fadeInUp}
             className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
           >
@@ -1169,7 +1169,7 @@ export default function App() {
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="whileInView"
@@ -1198,7 +1198,7 @@ export default function App() {
       {/* Community Service Section */}
       <section id="service" className="py-16 sm:py-20 px-6 sm:px-8 lg:px-12 bg-white/50">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             {...fadeInUp}
             className="flex items-center justify-center gap-3 mb-8 sm:mb-12"
           >
@@ -1208,7 +1208,7 @@ export default function App() {
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="whileInView"
@@ -1283,7 +1283,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <motion.footer 
+      <motion.footer
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
