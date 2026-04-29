@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nathandaud123.github.io/PortoDivaKurnianingtyas/sitemap.xml
